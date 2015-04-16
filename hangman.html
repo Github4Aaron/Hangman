@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Hangman </title>
+	<style>
+
+
+	body {
+    	background-image: url();	/* Need quotes for URL, and must choose image, not just website. */
+    	background-repeat: no-repeat;  /* So that image only shows up one time. */
+    	background-color: orange;	
+
+	}
+
+	h1 {
+		color: red;
+		text-align: center;
+		font-family: arial; 
+	}
+
+	h2 {
+		color: red;
+		text-align: center;
+		font-family: arial;
+		font-size: 18px;
+		margin-top: -10px;
+	}
+
+	#rules {
+		text-align: center;
+		color: red;
+		font-family: arial;
+
+	}
+	.picture {
+		width: 350px;
+		height: auto; /* Image will look crunched if  auto isn't set to match width. */
+		position: relative;
+		top: 30px;
+		display:block; /* Tells image to behave as a block item. */
+		margin: 0 auto; /*  shorthand:  top and bottom is 0; left and right is auto.*/
+	}
+	.header {
+		width: 100%;  /* Tells div with name of header to take up 100% of page, NOT pixels, for when page size changes. */
+
+	}
+	.content {
+		margin-top: 50px;
+	}
+	
+
+	</style>
+
+</head>
+
+<body>
+
+	<div class="header">
+		
+			<img class="picture" src="https://cdn3.iconfinder.com/data/icons/brain-games/1042/Hangman-Game-red.png" alt="logo"/>
+		
+	</div>
+
+	<div class="content">
+	<h1>Hangman</h1>
+	<h2> Instructions</h2>
+	<div id="rules">
+		
+			<p> 1. This program will randomly select a word.</p>
+			<p> 2. The first alert will display how many letters are in the word. </p>
+			<p> 3. Continue to guess letters until you can identify the word. </p>
+		 
+		<!-- LI will line up left hand side. -->
+	</div>	
+</div>
+	<script>
+	window.onload = function (){
+	// CREATE AN ARRAY OF WORDS
+	var words = [
+		"javascript", 
+		"monkey",
+		"amazing",
+		"pancake",
+		"maddie",
+		"mackenzie",
+		"marcus",
+		"max",
+		"miles",
+		"dad",
+		"mom",
+		"molly",
+		"aaron",
+	];
+		// ABOVE:  The source of the secret word. 
+
+	// PICK A RANDOM WORD 
+	var word = words[Math.floor(Math.random() * words.length)];
+
+		// ABOVE:  Math.floor rounds down the number, and Math.random generates a random number.  Because Math.random always generates a number less than 1, it must be multiplied by something, in this case words.length.
+
+	// SETUP ANSWER ARRAY 
+	var answerArray = [];
+	for (var i = 0;  i < word.length; i++) {
+		answerArray[i] = "_";
+	}
+		// ABOVE:  For loop creates a looping variable i that starts at 0 and goes up to word.length. Var i uses the incrementing operator ++. 
+
+	var remainingLetters = word.length;
+
+	// THE GAME LOOP
+
+	while (remainingLetters > 0) {
+		// SHOW PLAYER PROGRESS 
+		alert(answerArray.join(" "));
+
+		// ABOVE:  The join method joins together all the elements of the answerArray, and the chosen separator between the array elements is a blank space. 
+
+		// GET A GUESS FROM THE PLAYER
+		
+		var guess1 = prompt("Please guess a letter, or click Cancel to stop playing.");
+		var guess = guess1.toLowerCase();
+
+		if (guess === null) {
+			// EXIT THE GAME LOOP
+			break;
+		} else if (guess.length !== 1) {
+			alert("Please enter a single letter.");
+		}  else {
+			// UPDATE THE GAME WITH THE PLAYER'S GUESS
+			for (var j = 0; j < word.length; j++) {
+				if (word[j] === guess) {
+				answerArray[j] = guess;
+				remainingLetters--;
+				// ABOVE:  The for loop uses the variable j, which goes from 0 up to the word length. 
+
+				}
+			}
+		}
+	}
+
+		// THE END OF THE GAME LOOP
+	
+
+	// SHOW THE ANSWER AND CONGRATULATE THE PLAYER
+
+	alert(answerArray.join(" "));
+	alert("Great job!  The answer was " + word);
+}
+	</script>
+</body>
+</html>
+		
